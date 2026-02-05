@@ -31,7 +31,7 @@
  * ambientais ao relógio de simulação do WRENCH. Ela é responsável por calcular
  * a geração e o consumo de energia, aplicar a política PV-first e estimar a
  * pegada hídrica indireta a cada avanço temporal da simulação.
- */
+ */[]
 
 namespace wrench_pvfirst {
 namespace simulation {

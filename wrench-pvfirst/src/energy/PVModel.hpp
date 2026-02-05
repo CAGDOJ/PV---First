@@ -15,7 +15,8 @@
  * PT:
  * Esta classe implementa um modelo de geração de energia fotovoltaica (PV).
  * O modelo converte irradiância solar em potência e energia elétrica
- * utilizando equações fotovoltaicas clássicas. Este modelo é independente
+ * utilizando equações fotovoltaicas clássicas. 
+ * Este modelo é independente
  * do ambiente de simulação e deve ser acoplado ao relógio do WRENCH por
  * meio de um gerenciador externo.
  */
