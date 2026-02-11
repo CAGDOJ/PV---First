@@ -1,3 +1,0 @@
-/mnt/c/Users/stel-adm/Documents/GitHub/build/CMakeFiles/pvfirst.dir
-/mnt/c/Users/stel-adm/Documents/GitHub/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/stel-adm/Documents/GitHub/build/CMakeFiles/rebuild_cache.dir
