@@ -2,7 +2,7 @@
 #define ENERGY_MODEL_HPP
 
 struct EnergyStats {
-    double E_total = 0.0;
+    double E_total = 0.0; 
     double E_pv    = 0.0;
     double E_grid  = 0.0;
     double CO2     = 0.0;
