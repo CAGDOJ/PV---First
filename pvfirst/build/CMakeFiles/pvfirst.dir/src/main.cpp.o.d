@@ -116,4 +116,6 @@ CMakeFiles/pvfirst.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/memory_resource.h /usr/include/c++/13/cstddef \
  /usr/include/c++/13/bits/uses_allocator.h \
  /usr/include/c++/13/bits/uses_allocator_args.h /usr/include/c++/13/tuple \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.hpp
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.hpp

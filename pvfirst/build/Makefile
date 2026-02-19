@@ -201,6 +201,78 @@ src/policy/PVFirstPolicy.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.s
 .PHONY : src/policy/PVFirstPolicy.cpp.s
 
+src/sensors/GeoSensor.o: src/sensors/GeoSensor.cpp.o
+.PHONY : src/sensors/GeoSensor.o
+
+# target to build an object file
+src/sensors/GeoSensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o
+.PHONY : src/sensors/GeoSensor.cpp.o
+
+src/sensors/GeoSensor.i: src/sensors/GeoSensor.cpp.i
+.PHONY : src/sensors/GeoSensor.i
+
+# target to preprocess a source file
+src/sensors/GeoSensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.i
+.PHONY : src/sensors/GeoSensor.cpp.i
+
+src/sensors/GeoSensor.s: src/sensors/GeoSensor.cpp.s
+.PHONY : src/sensors/GeoSensor.s
+
+# target to generate assembly for a file
+src/sensors/GeoSensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.s
+.PHONY : src/sensors/GeoSensor.cpp.s
+
+src/sensors/MetarSensor.o: src/sensors/MetarSensor.cpp.o
+.PHONY : src/sensors/MetarSensor.o
+
+# target to build an object file
+src/sensors/MetarSensor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o
+.PHONY : src/sensors/MetarSensor.cpp.o
+
+src/sensors/MetarSensor.i: src/sensors/MetarSensor.cpp.i
+.PHONY : src/sensors/MetarSensor.i
+
+# target to preprocess a source file
+src/sensors/MetarSensor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.i
+.PHONY : src/sensors/MetarSensor.cpp.i
+
+src/sensors/MetarSensor.s: src/sensors/MetarSensor.cpp.s
+.PHONY : src/sensors/MetarSensor.s
+
+# target to generate assembly for a file
+src/sensors/MetarSensor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.s
+.PHONY : src/sensors/MetarSensor.cpp.s
+
+src/sensors/SolarModel.o: src/sensors/SolarModel.cpp.o
+.PHONY : src/sensors/SolarModel.o
+
+# target to build an object file
+src/sensors/SolarModel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o
+.PHONY : src/sensors/SolarModel.cpp.o
+
+src/sensors/SolarModel.i: src/sensors/SolarModel.cpp.i
+.PHONY : src/sensors/SolarModel.i
+
+# target to preprocess a source file
+src/sensors/SolarModel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.i
+.PHONY : src/sensors/SolarModel.cpp.i
+
+src/sensors/SolarModel.s: src/sensors/SolarModel.cpp.s
+.PHONY : src/sensors/SolarModel.s
+
+# target to generate assembly for a file
+src/sensors/SolarModel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.s
+.PHONY : src/sensors/SolarModel.cpp.s
+
 src/simulation/SimulationController.o: src/simulation/SimulationController.cpp.o
 .PHONY : src/simulation/SimulationController.o
 
@@ -243,6 +315,15 @@ help:
 	@echo "... src/policy/PVFirstPolicy.o"
 	@echo "... src/policy/PVFirstPolicy.i"
 	@echo "... src/policy/PVFirstPolicy.s"
+	@echo "... src/sensors/GeoSensor.o"
+	@echo "... src/sensors/GeoSensor.i"
+	@echo "... src/sensors/GeoSensor.s"
+	@echo "... src/sensors/MetarSensor.o"
+	@echo "... src/sensors/MetarSensor.i"
+	@echo "... src/sensors/MetarSensor.s"
+	@echo "... src/sensors/SolarModel.o"
+	@echo "... src/sensors/SolarModel.i"
+	@echo "... src/sensors/SolarModel.s"
 	@echo "... src/simulation/SimulationController.o"
 	@echo "... src/simulation/SimulationController.i"
 	@echo "... src/simulation/SimulationController.s"

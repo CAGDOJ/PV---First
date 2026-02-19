@@ -11,6 +11,9 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.cpp" "CMakeFiles/pvfirst.dir/src/energy/EnergyModel.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/energy/EnergyModel.cpp.o.d"
   "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/main.cpp" "CMakeFiles/pvfirst.dir/src/main.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/main.cpp.o.d"
   "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/policy/PVFirstPolicy.cpp" "CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.o.d"
+  "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.cpp" "CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o.d"
+  "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.cpp" "CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o.d"
+  "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.cpp" "CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o.d"
   "/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.cpp" "CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o" "gcc" "CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o.d"
   )
 

@@ -3,6 +3,9 @@
 
 #include <string>
 #include "energy/EnergyModel.hpp"
+#include "sensors/GeoSensor.hpp"
+#include "sensors/SolarModel.hpp"
+
 
 class SimulationController {
 public:

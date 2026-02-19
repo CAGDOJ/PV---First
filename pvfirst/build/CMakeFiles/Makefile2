@@ -81,12 +81,12 @@ clean: CMakeFiles/pvfirst.dir/clean
 CMakeFiles/pvfirst.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pvfirst.dir/build.make CMakeFiles/pvfirst.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target pvfirst"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target pvfirst"
 .PHONY : CMakeFiles/pvfirst.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/pvfirst.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/pvfirst.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles 0
 .PHONY : CMakeFiles/pvfirst.dir/rule

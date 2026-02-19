@@ -111,10 +111,52 @@ CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/policy/PVFirstPolicy.cpp -o CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.s
 
+CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o: CMakeFiles/pvfirst.dir/flags.make
+CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o: /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.cpp
+CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o: CMakeFiles/pvfirst.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o -MF CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o.d -o CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o -c /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.cpp
+
+CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.cpp > CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.i
+
+CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.cpp -o CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.s
+
+CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o: CMakeFiles/pvfirst.dir/flags.make
+CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o: /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.cpp
+CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o: CMakeFiles/pvfirst.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o -MF CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o.d -o CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o -c /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.cpp
+
+CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.cpp > CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.i
+
+CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.cpp -o CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.s
+
+CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o: CMakeFiles/pvfirst.dir/flags.make
+CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o: /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.cpp
+CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o: CMakeFiles/pvfirst.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o -MF CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o.d -o CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o -c /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.cpp
+
+CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.cpp > CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.i
+
+CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.cpp -o CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.s
+
 CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o: CMakeFiles/pvfirst.dir/flags.make
 CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o: /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.cpp
 CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o: CMakeFiles/pvfirst.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o -MF CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o.d -o CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o -c /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.cpp
 
 CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.i: cmake_force
@@ -130,6 +172,9 @@ pvfirst_OBJECTS = \
 "CMakeFiles/pvfirst.dir/src/energy/EnergyModel.cpp.o" \
 "CMakeFiles/pvfirst.dir/src/main.cpp.o" \
 "CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.o" \
+"CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o" \
+"CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o" \
+"CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o" \
 "CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o"
 
 # External object files for target pvfirst
@@ -138,10 +183,14 @@ pvfirst_EXTERNAL_OBJECTS =
 pvfirst: CMakeFiles/pvfirst.dir/src/energy/EnergyModel.cpp.o
 pvfirst: CMakeFiles/pvfirst.dir/src/main.cpp.o
 pvfirst: CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.o
+pvfirst: CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o
+pvfirst: CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o
+pvfirst: CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o
 pvfirst: CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o
 pvfirst: CMakeFiles/pvfirst.dir/build.make
+pvfirst: /usr/lib/x86_64-linux-gnu/libcurl.so
 pvfirst: CMakeFiles/pvfirst.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable pvfirst"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable pvfirst"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pvfirst.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
