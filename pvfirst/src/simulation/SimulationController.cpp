@@ -104,15 +104,39 @@ void SimulationController::run()
             gps.latitude,
             gps.longitude);
 
-    std::cout << "\nImpactos meteorologicos:\n";
-    std::cout << "Cloud factor: "
-              << impact.cloudFactor << "\n";
-    std::cout << "Rain factor: "
-              << impact.rainFactor << "\n";
-    std::cout << "Temp factor: "
-              << impact.tempFactor << "\n";
-    std::cout << "Wind cooling factor: "
-              << impact.windCoolingFactor << "\n";
+        std::cout << "\n===== CONDICOES METEOROLOGICAS =====\n";
+
+        // 🌥 NUVENS
+        if (impact.cloudFactor == 1.0)
+            std::cout << "Cobertura de nuvens: Ceu limpo (sem reducao de irradiancia)\n";
+        else
+            std::cout << "Cobertura de nuvens: Reducao de "
+                    << (1.0 - impact.cloudFactor) * 100
+                    << "% na irradiancia\n";
+
+        // 🌧 CHUVA
+        if (impact.rainFactor == 1.0)
+            std::cout << "Chuva: Nao esta chovendo\n";
+        else
+            std::cout << "Chuva: Reducao significativa na geracao devido a precipitacao\n";
+
+        // 🌡 TEMPERATURA
+        if (impact.tempFactor == 1.0)
+            std::cout << "Temperatura: Sem perda termica significativa\n";
+        else
+            std::cout << "Temperatura: Perda de "
+                    << (1.0 - impact.tempFactor) * 100
+                    << "% na eficiencia do modulo\n";
+
+        // 💨 VENTO
+        if (impact.windCoolingFactor == 1.0)
+            std::cout << "Vento: Sem impacto significativo\n";
+        else
+            std::cout << "Vento: Ganho de "
+                    << (impact.windCoolingFactor - 1.0) * 100
+                    << "% por resfriamento do modulo\n";
+
+
 
     // =====================================================
     // 5️⃣ APLICAR IMPACTOS
