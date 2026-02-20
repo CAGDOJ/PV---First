@@ -8,6 +8,7 @@
 #include <cctype>
 #include <ctime>
 #include <fstream>
+#include <filesystem>
 
 
 SimulationController::SimulationController()
@@ -206,13 +207,7 @@ void SimulationController::run()
               << stats.CO2
               << " gCO2\n";
 
-    std::ofstream file("results.csv", std::ios::app);
+    bool fileExists = std::filesystem::exists("results.csv");
 
-    file << stats.E_total << ","
-        << stats.E_pv << ","
-        << stats.E_grid << ","
-        << stats.CO2 << std::endl;
-
-    file.close();
 
 }
