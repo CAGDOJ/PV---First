@@ -7,6 +7,8 @@
 #include <string>
 #include <cctype>
 #include <ctime>
+#include <fstream>
+
 
 SimulationController::SimulationController()
     : model(100.0) // intensidade média carbono (gCO2/kWh)
@@ -203,4 +205,14 @@ void SimulationController::run()
     std::cout << "Emissoes CO2: "
               << stats.CO2
               << " gCO2\n";
+
+    std::ofstream file("results.csv", std::ios::app);
+
+    file << stats.E_total << ","
+        << stats.E_pv << ","
+        << stats.E_grid << ","
+        << stats.CO2 << std::endl;
+
+    file.close();
+
 }
