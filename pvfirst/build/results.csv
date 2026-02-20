@@ -1,2 +1,4 @@
-E_total;E_pv;E_grid;CO2
-2;0;2;200
+Hora_local;Dia_ano;Irradiancia;Temperatura;P_pv_inst;E_total;E_pv;E_grid;CO2
+02:48;51;0;24.5;0;0.5;0;0.5;50
+03:02;51;0;24.5;0;0.5;0;0.5;50
+03:16;51;0;24.5;0;0.5;0;0.5;50

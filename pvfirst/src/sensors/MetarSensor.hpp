@@ -1,11 +1,19 @@
 #pragma once
 
-struct WeatherImpact {
-    double cloudFactor;        // redução por nuvem
-    double rainFactor;         // redução por chuva
-    double tempFactor;         // impacto térmico
-    double windCoolingFactor;  // melhora por vento
+struct WeatherImpact
+{
+    double cloudFactor;
+    double rainFactor;
+    double tempFactor;
+    double windCoolingFactor;
+
+    // 🔹 valores reais medidos
+    double temperature;
+    double cloudCover;
+    double rainAmount;
+    double windSpeed;
 };
+
 
 class MetarSensor {
 public:
