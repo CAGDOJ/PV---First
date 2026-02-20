@@ -6,9 +6,11 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include <ctime>
+
 #include <fstream>
 #include <filesystem>
+#include <ctime>
+
 
 
 SimulationController::SimulationController()
@@ -182,7 +184,7 @@ void SimulationController::run()
     // =====================================================
 
     double P_job = 2.0;
-
+                    
     model.update(P_job,
                  P_pv,
                  total_seconds);
@@ -207,7 +209,40 @@ void SimulationController::run()
               << stats.CO2
               << " gCO2\n";
 
-    bool fileExists = std::filesystem::exists("results.csv");
+  // ================= SALVAMENTO COMPLETO CSV =================
+
+bool fileExists = std::filesystem::exists("results.csv");
+
+std::ofstream file("results.csv", std::ios::app);
+
+if (!fileExists) {
+    file << "Hora_local;Dia_ano;Irradiancia;Temperatura;P_pv_inst;"
+            "E_total;E_pv;E_grid;CO2\n";
+}
+
+double hora_local = total_seconds / 3600.0;
+
+std::time_t tempo_atual = std::time(nullptr);
+std::tm* info_tempo = std::localtime(&tempo_atual);
+int dia_ano = info_tempo->tm_yday + 1;
+
+std::string irradiancia_str = "NA";
+std::string temperatura_str = "NA";
+
+file << hora_local << ";"
+     << dia_ano << ";"
+     << irradiancia_str << ";"
+     << temperatura_str << ";"
+     << P_pv << ";"
+     << stats.E_total << ";"
+     << stats.E_pv << ";"
+     << stats.E_grid << ";"
+     << stats.CO2 << "\n";
+
+file.close();
+
+// ============================================================
+
 
 
 }
