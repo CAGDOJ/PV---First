@@ -18,3 +18,5 @@ add_executable(pvfirst ${SOURCES})
 
 find_package(CURL REQUIRED)
 target_link_libraries(pvfirst PRIVATE CURL::libcurl)
+
+set(CMAKE_CXX_STANDARD 17)
