@@ -50,26 +50,22 @@ void SimulationController::run()
     std::cout << "\n============= INICIANDO SIMULACAO =============\n";
     std::cout << "Simulando " << total_seconds << " segundos...\n";
 
-
-
-    // =========================================================
+    // =====================================================
     // GPS
-    // =========================================================
+    // =====================================================
 
     GeoSensor geo;
     GPSData gps = geo.getLocation();
 
-    std::cout << "\nLocal detectado: "
+    std::cout << "Local detectado: "
               << gps.city
               << " (Lat: " << gps.latitude
               << ", Lon: " << gps.longitude
               << ")\n";
 
-
-
-    // =========================================================
-    // DATA E HORA
-    // =========================================================
+    // =====================================================
+    // DATA
+    // =====================================================
 
     std::time_t now = std::time(nullptr);
     std::tm* local = std::localtime(&now);
@@ -81,94 +77,92 @@ void SimulationController::run()
     double hour = hourInt + minuteInt / 60.0;
 
     std::cout << "Hora local: "
-              << (hourInt < 10 ? "0" : "") << hourInt << ":"
-              << (minuteInt < 10 ? "0" : "") << minuteInt << "\n";
+              << hourInt << ":"
+              << minuteInt << "\n";
 
-    std::cout << "Dia do ano: " << dayOfYear << "\n";
+    std::cout << "Dia do ano: "
+              << dayOfYear << "\n";
 
-
-
-    // =========================================================
-    // MODELO SOLAR
-    // =========================================================
+    // =====================================================
+    // SOLAR MODEL
+    // =====================================================
 
     SolarModel solar;
 
     double G = solar.computeIrradiance(
-                   gps.latitude,
-                   dayOfYear,
-                   hour);
+        gps.latitude,
+        dayOfYear,
+        hour);
 
     std::cout << "Irradiancia teorica: "
               << G << " W/m2\n";
 
-
-
-    // =========================================================
-    // CLIMA (API)
-    // =========================================================
+    // =====================================================
+    // WEATHER
+    // =====================================================
 
     MetarSensor metar;
-
     WeatherImpact impact =
         metar.getWeatherImpact(
             gps.latitude,
             gps.longitude);
 
-    double temp  = impact.temperature;
-    double cloud = impact.cloudCover;
-    double rain  = impact.rainAmount;
-    double wind  = impact.windSpeed;
-
     std::cout << "\n============ CONDICOES METEOROLOGICAS ============\n";
 
-    std::cout << "Cobertura de nuvens: " << cloud << " % ";
-    if (impact.cloudFactor == 1.0)
-        std::cout << "(Ceu limpo)\n";
-    else
-        std::cout << "(Reducao de "
-                  << (1.0 - impact.cloudFactor) * 100
-                  << "%)\n";
+    // ☁️ NUVENS
+    std::cout << "Cobertura de nuvens: "
+            << impact.cloudCover << " % ";
 
-    std::cout << "Chuva: " << rain << " mm ";
-    if (impact.rainFactor == 1.0)
+    if (impact.cloudCover < 20)
+        std::cout << "(Ceu limpo - impacto minimo)\n";
+    else if (impact.cloudCover < 60)
+        std::cout << "(Reducao moderada na irradiancia)\n";
+    else
+        std::cout << "(Alta reducao na irradiancia)\n";
+
+    // 🌧 CHUVA
+    std::cout << "Chuva: "
+            << impact.rainAmount << " mm ";
+
+    if (impact.rainAmount == 0)
         std::cout << "(Sem precipitacao)\n";
+    else if (impact.rainAmount < 2)
+        std::cout << "(Chuva leve - pequeno impacto)\n";
     else
-        std::cout << "(Reducao significativa)\n";
+        std::cout << "(Precipitacao significativa - forte impacto)\n";
 
-    std::cout << "Temperatura: " << temp << " °C ";
-    if (impact.tempFactor == 1.0)
+    // 🌡 TEMPERATURA
+    std::cout << "Temperatura: "
+            << impact.temperature << " °C ";
+
+    if (impact.temperature <= 25)
         std::cout << "(Sem perda termica significativa)\n";
     else
-        std::cout << "(Perda de "
-                  << (1.0 - impact.tempFactor) * 100
-                  << "%)\n";
+    {
+        double loss = (1.0 - impact.tempFactor) * 100.0;
+        std::cout << "(Perda de " << loss << "% na eficiencia)\n";
+    }
 
-    std::cout << "Velocidade do vento: " << wind << " km/h ";
-    if (impact.windCoolingFactor == 1.0)
+    // 💨 VENTO
+    std::cout << "Velocidade do vento: "
+            << impact.windSpeed << " km/h ";
+
+    if (impact.windSpeed < 1)
         std::cout << "(Sem impacto significativo)\n";
     else
-        std::cout << "(Ganho de "
-                  << (impact.windCoolingFactor - 1.0) * 100
-                  << "%)\n";
+    {
+        double gain = (impact.windCoolingFactor - 1.0) * 100.0;
+        std::cout << "(Ganho de " << gain << "% por resfriamento)\n";
+    }
 
-
-
-    // =========================================================
+    // =====================================================
     // APLICAR IMPACTOS
-    // =========================================================
+    // =====================================================
 
-    G *= impact.cloudFactor;
-    G *= impact.rainFactor;
+    double G_adjusted = G * impact.cloudFactor * impact.rainFactor;
 
-    std::cout << "\nIrradiancia ajustada: "
-              << G << " W/m2\n";
-
-
-
-    // =========================================================
-    // EFICIENCIA + POTENCIA
-    // =========================================================
+    std::cout << "Irradiancia ajustada: "
+              << G_adjusted << " W/m2\n";
 
     double baseEfficiency = 0.20;
 
@@ -177,22 +171,22 @@ void SimulationController::run()
         impact.tempFactor *
         impact.windCoolingFactor;
 
+    std::cout << "Eficiencia final: "
+              << efficiency << "\n";
+
     double area = 10.0;
 
     double P_pv =
-        efficiency * area * G / 1000.0;
+        efficiency * area * G_adjusted / 1000.0;
 
-    std::cout << "Eficiencia final: "
-              << efficiency << "\n";
+    if (P_pv < 0) P_pv = 0;
 
     std::cout << "Potencia PV estimada: "
               << P_pv << " kW\n";
 
-
-
-    // =========================================================
+    // =====================================================
     // ENERGY MODEL
-    // =========================================================
+    // =====================================================
 
     double P_job = 2.0;
 
@@ -203,54 +197,45 @@ void SimulationController::run()
     EnergyStats stats = model.getStats();
 
     std::cout << "\n============= RESULTADO =============\n";
-    std::cout << "Energia Total: " << stats.E_total << " kWh\n";
-    std::cout << "Energia PV: "    << stats.E_pv    << " kWh\n";
-    std::cout << "Energia Grid: "  << stats.E_grid  << " kWh\n";
-    std::cout << "Emissoes CO2: "  << stats.CO2     << " gCO2\n";
+    std::cout << "Energia Total: "
+              << stats.E_total << " kWh\n";
+    std::cout << "Energia PV: "
+              << stats.E_pv << " kWh\n";
+    std::cout << "Energia Grid: "
+              << stats.E_grid << " kWh\n";
+    std::cout << "Emissoes CO2: "
+              << stats.CO2 << " gCO2\n";
 
+    // =====================================================
+    // CSV
+    // =====================================================
 
+    bool fileExists = std::filesystem::exists("results.csv");
 
-    // =========================================================
-    // SALVAR CSV
-    // =========================================================
+    std::ofstream file("results.csv", std::ios::app);
 
-    auto fmt = [](double v)
+   if (!fileExists)
     {
-        if (std::abs(v) < 1e-9)
-            return std::string("0");
-
-        std::ostringstream oss;
-        oss << v;
-        return oss.str();
-    };
-
-    bool fileExists =
-        std::filesystem::exists("results.csv");
-
-    std::ofstream file("results.csv",
-                       std::ios::app);
-
-    if (!fileExists)
-    {
-        file << "Hora_local;Dia_ano;Irradiancia;Temperatura;"
-                "P_pv_inst;E_total;E_pv;E_grid;CO2\n";
+        file << "Hora_local;Dia_ano;"
+                "Irradiancia_teorica;"
+                "Irradiancia_ajustada;"
+                "Temperatura;"
+                "P_pv_inst;"
+                "E_total;"
+                "E_pv;"
+                "E_grid;"
+                "CO2\n";
     }
 
-    file << (hourInt < 10 ? "0" : "") << hourInt
-         << ":" 
-         << (minuteInt < 10 ? "0" : "") << minuteInt
-         << ";"
-         << dayOfYear << ";"
-         << fmt(G) << ";"
-         << fmt(temp) << ";"
-         << fmt(P_pv) << ";"
-         << fmt(stats.E_total) << ";"
-         << fmt(stats.E_pv) << ";"
-         << fmt(stats.E_grid) << ";"
-         << fmt(stats.CO2)
-         << "\n";
-
-    file.close();
-
+   file << hourInt << ":" << minuteInt << ";"
+     << dayOfYear << ";"
+     << G << ";"               
+     << G_adjusted << ";"      
+     << impact.temperature << ";"
+     << P_pv << ";"
+     << stats.E_total << ";"
+     << stats.E_pv << ";"
+     << stats.E_grid << ";"
+     << stats.CO2 << "\n";
     std::cout << "\nDados salvos em results.csv\n";
 }
