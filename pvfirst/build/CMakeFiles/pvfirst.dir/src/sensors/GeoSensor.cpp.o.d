@@ -1,8 +1,7 @@
 CMakeFiles/pvfirst.dir/src/sensors/GeoSensor.cpp.o: \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.cpp \
- /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.hpp \
- /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
+ /app/src/sensors/GeoSensor.cpp /usr/include/stdc-predef.h \
+ /app/src/sensors/GeoSensor.hpp /usr/include/c++/13/string \
+ /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

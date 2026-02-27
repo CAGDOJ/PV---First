@@ -1,8 +1,7 @@
 CMakeFiles/pvfirst.dir/src/energy/EnergyModel.cpp.o: \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.cpp \
- /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.hpp \
- /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algobase.h \
+ /app/src/energy/EnergyModel.cpp /usr/include/stdc-predef.h \
+ /app/src/energy/EnergyModel.hpp /usr/include/c++/13/algorithm \
+ /usr/include/c++/13/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \

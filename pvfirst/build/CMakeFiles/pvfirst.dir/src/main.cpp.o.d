@@ -1,7 +1,5 @@
-CMakeFiles/pvfirst.dir/src/main.cpp.o: \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/main.cpp \
- /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.hpp \
+CMakeFiles/pvfirst.dir/src/main.cpp.o: /app/src/main.cpp \
+ /usr/include/stdc-predef.h /app/src/simulation/SimulationController.hpp \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -116,6 +114,5 @@ CMakeFiles/pvfirst.dir/src/main.cpp.o: \
  /usr/include/c++/13/bits/memory_resource.h /usr/include/c++/13/cstddef \
  /usr/include/c++/13/bits/uses_allocator.h \
  /usr/include/c++/13/bits/uses_allocator_args.h /usr/include/c++/13/tuple \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.hpp \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.hpp \
- /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.hpp
+ /app/src/energy/EnergyModel.hpp /app/src/sensors/GeoSensor.hpp \
+ /app/src/sensors/SolarModel.hpp
