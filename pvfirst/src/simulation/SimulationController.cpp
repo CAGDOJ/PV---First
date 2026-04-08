@@ -159,12 +159,12 @@ void SimulationController::run()
     // APLICAR IMPACTOS
     // =====================================================
 
-    double G_adjusted = G * impact.cloudFactor * impact.rainFactor;
+    double G_adjusted = G * impact.cloudFactor * impact.rainFactor; // impactos diretos na irradiancia
 
     std::cout << "Irradiancia ajustada: "
-              << G_adjusted << " W/m2\n";
+              << G_adjusted << " W/m2\n"; // valor que realmente chega ao painel
 
-    double baseEfficiency = 0.20;
+    double baseEfficiency = 0.20; // eficiencia nominal do painel
 
     double efficiency =
         baseEfficiency *
@@ -172,12 +172,12 @@ void SimulationController::run()
         impact.windCoolingFactor;
 
     std::cout << "Eficiencia final: "
-              << efficiency << "\n";
+              << efficiency << "\n"; // valor que realmente converte a irradiancia em energia
 
-    double area = 10.0;
+    double area = 10.0;  // m2 de painel
 
     double P_pv =
-        efficiency * area * G_adjusted / 1000.0;
+        efficiency * area * G_adjusted / 1000.0; // Modulo de conversao para kW da irradiancia
 
     if (P_pv < 0) P_pv = 0;
 
