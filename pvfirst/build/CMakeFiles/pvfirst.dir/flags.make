@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src
+CXX_INCLUDES = -I/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src
 
 CXX_FLAGS = -std=gnu++17
 

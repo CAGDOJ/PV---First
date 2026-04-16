@@ -1,7 +1,7 @@
 CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o: \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/SolarModel.cpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/SolarModel.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.hpp \
  /usr/include/c++/13/cmath /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \

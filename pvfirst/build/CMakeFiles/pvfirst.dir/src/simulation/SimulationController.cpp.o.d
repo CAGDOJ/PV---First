@@ -1,9 +1,9 @@
 CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o: \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/simulation/SimulationController.cpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/simulation/SimulationController.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/energy/EnergyModel.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/policy/PVFirstPolicy.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/policy/PVFirstPolicy.hpp \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -118,10 +118,10 @@ CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o: \
  /usr/include/c++/13/bits/memory_resource.h /usr/include/c++/13/cstddef \
  /usr/include/c++/13/bits/uses_allocator.h \
  /usr/include/c++/13/bits/uses_allocator_args.h /usr/include/c++/13/tuple \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/simulation/SimGridJobRunner.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/GeoSensor.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/MetarSensor.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/SolarModel.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimGridJobRunner.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/GeoSensor.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/SolarModel.hpp \
  /usr/include/c++/13/ctime /usr/include/time.h \
  /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/bits/timex.h \

@@ -1,7 +1,7 @@
 CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o: \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/MetarSensor.cpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/sensors/MetarSensor.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/sensors/MetarSensor.hpp \
  /usr/include/x86_64-linux-gnu/curl/curl.h \
  /usr/include/x86_64-linux-gnu/curl/curlver.h \
  /usr/include/x86_64-linux-gnu/curl/system.h \

@@ -1,9 +1,9 @@
 CMakeFiles/pvfirst.dir/src/main.cpp.o: \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/main.cpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/main.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/simulation/SimulationController.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/energy/EnergyModel.hpp \
- /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/policy/PVFirstPolicy.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/simulation/SimulationController.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/energy/EnergyModel.hpp \
+ /mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src/policy/PVFirstPolicy.hpp \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
