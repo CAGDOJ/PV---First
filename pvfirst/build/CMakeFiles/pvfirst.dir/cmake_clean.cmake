@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/pvfirst.dir/src/sensors/MetarSensor.cpp.o.d"
   "CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o"
   "CMakeFiles/pvfirst.dir/src/sensors/SolarModel.cpp.o.d"
+  "CMakeFiles/pvfirst.dir/src/simulation/SimGridJobRunner.cpp.o"
+  "CMakeFiles/pvfirst.dir/src/simulation/SimGridJobRunner.cpp.o.d"
   "CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o"
   "CMakeFiles/pvfirst.dir/src/simulation/SimulationController.cpp.o.d"
   "pvfirst"

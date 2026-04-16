@@ -1,241 +1,198 @@
 #include "SimulationController.hpp"
+#include "SimGridJobRunner.hpp"
 #include "sensors/GeoSensor.hpp"
-#include "sensors/SolarModel.hpp"
 #include "sensors/MetarSensor.hpp"
+#include "sensors/SolarModel.hpp"
 
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <fstream>
-#include <filesystem>
 #include <ctime>
+#include <filesystem>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
 #include <sstream>
-#include <cmath>
-
-
+#include <stdexcept>
 
 SimulationController::SimulationController()
     : model(100.0)
-{}
-
-
-
-double SimulationController::parseTimeInput(const std::string& input)
 {
-    double value = std::stod(input.substr(0, input.size() - 1));
-    char unit = std::toupper(input.back());
-
-    switch(unit)
-    {
-        case 'S': return value;
-        case 'M': return value * 60.0;
-        case 'H': return value * 3600.0;
-        default:
-            std::cout << "Unidade invalida. Usando segundos.\n";
-            return value;
-    }
 }
 
+double SimulationController::parseJobInput(const std::string& input)
+{
+    // Se eu apertar enter sem digitar nada, uso um valor padrao para nao travar o teste.
+    if (input.empty())
+        return 5e10;
 
+    return std::stod(input);
+}
 
-void SimulationController::run()
+double SimulationController::askJobFlops()
 {
     std::string input;
 
-    std::cout << "\nDigite o tempo de simulacao (ex: 10S, 5M, 2H): ";
-    std::cin >> input;
+    std::cout << "Digite a carga do job em FLOPs (ex: 5e10).\n";
+    std::cout << "Se quiser usar o valor padrao, e so apertar Enter: ";
+    std::getline(std::cin, input);
 
-    double total_seconds = parseTimeInput(input);
+    return parseJobInput(input);
+}
 
-    std::cout << "\n============= INICIANDO SIMULACAO =============\n";
-    std::cout << "Simulando " << total_seconds << " segundos...\n";
+void SimulationController::run()
+{
+    std::cout << "\n============================================================\n";
+    std::cout << "SIMULACAO PV-FIRST COM JOB DO SIMGRID\n";
+    std::cout << "============================================================\n\n";
 
-    // =====================================================
-    // GPS
-    // =====================================================
+    std::cout << "Fluxo da simulacao:\n";
+    std::cout << "1) o SimGrid executa o job e mede a energia exigida pelo host\n";
+    std::cout << "2) eu calculo a energia solar disponivel com base no local e no clima\n";
+    std::cout << "3) a politica PV-First tenta atender primeiro o job com a placa\n\n";
 
+    double jobFlops = askJobFlops();
+
+    // ============================== LOCALIZACAO ==============================
     GeoSensor geo;
     GPSData gps = geo.getLocation();
 
-    std::cout << "Local detectado: "
-              << gps.city
-              << " (Lat: " << gps.latitude
-              << ", Lon: " << gps.longitude
-              << ")\n";
-
-    // =====================================================
-    // DATA
-    // =====================================================
-
+    // ========================== HORA LOCAL E DIA =============================
     std::time_t now = std::time(nullptr);
-    std::tm* local = std::localtime(&now);
+    std::tm localTime = *std::localtime(&now);
 
-    int dayOfYear = local->tm_yday + 1;
-    int hourInt   = local->tm_hour;
-    int minuteInt = local->tm_min;
+    int dayOfYear = localTime.tm_yday + 1;
+    int hourInt   = localTime.tm_hour;
+    int minuteInt = localTime.tm_min;
+    double hour   = hourInt + minuteInt / 60.0;
 
-    double hour = hourInt + minuteInt / 60.0;
-
-    std::cout << "Hora local: "
-              << hourInt << ":"
-              << minuteInt << "\n";
-
-    std::cout << "Dia do ano: "
-              << dayOfYear << "\n";
-
-    // =====================================================
-    // SOLAR MODEL
-    // =====================================================
-
+    // ========================== CLIMA E IRRADIANCIA ==========================
     SolarModel solar;
-
-    double G = solar.computeIrradiance(
-        gps.latitude,
-        dayOfYear,
-        hour);
-
-    std::cout << "Irradiancia teorica: "
-              << G << " W/m2\n";
-
-    // =====================================================
-    // WEATHER
-    // =====================================================
+    double G = solar.computeIrradiance(gps.latitude, dayOfYear, hour);
 
     MetarSensor metar;
-    WeatherImpact impact =
-        metar.getWeatherImpact(
-            gps.latitude,
-            gps.longitude);
+    WeatherImpact impact = metar.getWeatherImpact(gps.latitude, gps.longitude);
 
-    std::cout << "\n============ CONDICOES METEOROLOGICAS ============\n";
+    // Aqui eu junto as perdas do clima em cima da irradiancia teorica.
+    // Primeiro reduzo a irradiancia com nuvem e chuva.
+    // Depois ajusto a eficiencia da placa com temperatura e vento.
+    double G_adjusted = G * impact.cloudFactor * impact.rainFactor;
 
-    // ☁️ NUVENS
-    std::cout << "Cobertura de nuvens: "
-            << impact.cloudCover << " % ";
+    double baseEfficiency = 0.20;
+    double efficiency = baseEfficiency * impact.tempFactor * impact.windCoolingFactor;
 
-    if (impact.cloudCover < 20)
-        std::cout << "(Ceu limpo - impacto minimo)\n";
-    else if (impact.cloudCover < 60)
-        std::cout << "(Reducao moderada na irradiancia)\n";
-    else
-        std::cout << "(Alta reducao na irradiancia)\n";
+    double area = 10.0;
 
-    // 🌧 CHUVA
-    std::cout << "Chuva: "
-            << impact.rainAmount << " mm ";
+    double P_pv = efficiency * area * G_adjusted / 1000.0;
+    if (P_pv < 0.0)
+        P_pv = 0.0;
 
-    if (impact.rainAmount == 0)
-        std::cout << "(Sem precipitacao)\n";
-    else if (impact.rainAmount < 2)
-        std::cout << "(Chuva leve - pequeno impacto)\n";
-    else
-        std::cout << "(Precipitacao significativa - forte impacto)\n";
+    std::cout << "\n-------------------- DADOS DO LOCAL --------------------\n";
+    std::cout << "Cidade detectada : " << gps.city << "\n";
+    std::cout << "Latitude         : " << gps.latitude << "\n";
+    std::cout << "Longitude        : " << gps.longitude << "\n";
+    std::cout << "Hora local       : "
+              << std::setfill('0') << std::setw(2) << hourInt << ":"
+              << std::setfill('0') << std::setw(2) << minuteInt << "\n";
+    std::cout << "Dia do ano       : " << dayOfYear << "\n";
 
-    // 🌡 TEMPERATURA
-    std::cout << "Temperatura: "
-            << impact.temperature << " °C ";
+    std::cout << "\n------------------ CONDICOES DO CLIMA ------------------\n";
+    std::cout << "Cobertura nuvens : " << impact.cloudCover << " %\n";
+    std::cout << "Chuva            : " << impact.rainAmount << " mm\n";
+    std::cout << "Temperatura      : " << impact.temperature << " C\n";
+    std::cout << "Vento            : " << impact.windSpeed << " km/h\n";
 
-    if (impact.temperature <= 25)
-        std::cout << "(Sem perda termica significativa)\n";
-    else
-    {
-        double loss = (1.0 - impact.tempFactor) * 100.0;
-        std::cout << "(Perda de " << loss << "% na eficiencia)\n";
+    std::cout << "\n----------------- MODELO FOTOVOLTAICO ------------------\n";
+    std::cout << "Irradiancia teorica     : " << G << " W/m2\n";
+    std::cout << "Irradiancia ajustada    : " << G_adjusted << " W/m2\n";
+    std::cout << "Eficiencia final arranjo: " << efficiency << "\n";
+    std::cout << "Potencia PV disponivel  : " << P_pv << " kW\n";
+
+    if (G <= 0.0) {
+        std::cout << "Observacao: neste horario a irradiancia teorica ficou zerada.\n";
+        std::cout << "Isso normalmente acontece porque o calculo caiu em periodo noturno ou muito proximo disso.\n";
     }
 
-    // 💨 VENTO
-    std::cout << "Velocidade do vento: "
-            << impact.windSpeed << " km/h ";
+    // ============================= JOB DO SIMGRID ============================
+    SimGridJobRunner jobRunner;
+    SimGridJobConfig jobConfig;
+    jobConfig.jobFlops = jobFlops;
 
-    if (impact.windSpeed < 1)
-        std::cout << "(Sem impacto significativo)\n";
-    else
-    {
-        double gain = (impact.windCoolingFactor - 1.0) * 100.0;
-        std::cout << "(Ganho de " << gain << "% por resfriamento)\n";
-    }
+    SimGridJobResult job = jobRunner.run(jobConfig);
 
-    // =====================================================
-    // APLICAR IMPACTOS
-    // =====================================================
+    std::cout << "\n--------------------- JOB DO SIMGRID -------------------\n";
+    std::cout << "Host usado          : " << job.hostName << "\n";
+    std::cout << "Carga do job        : " << job.jobFlops << " FLOPs\n";
+    std::cout << "Velocidade do host  : " << job.hostSpeedFlops << " flop/s\n";
+    std::cout << "Duracao do job      : " << job.durationSeconds << " s\n";
+    std::cout << "Energia do job      : " << job.energyJoules << " J\n";
+    std::cout << "Energia do job      : " << job.energyKWh << " kWh\n";
+    std::cout << "Potencia media job  : " << job.averagePowerKW << " kW\n";
 
-    double G_adjusted = G * impact.cloudFactor * impact.rainFactor; // impactos diretos na irradiancia
-
-    std::cout << "Irradiancia ajustada: "
-              << G_adjusted << " W/m2\n"; // valor que realmente chega ao painel
-
-    double baseEfficiency = 0.20; // eficiencia nominal do painel
-
-    double efficiency =
-        baseEfficiency *
-        impact.tempFactor *
-        impact.windCoolingFactor;
-
-    std::cout << "Eficiencia final: "
-              << efficiency << "\n"; // valor que realmente converte a irradiancia em energia
-
-    double area = 10.0;  // m2 de painel
-
-    double P_pv =
-        efficiency * area * G_adjusted / 1000.0; // Modulo de conversao para kW da irradiancia
-
-    if (P_pv < 0) P_pv = 0;
-
-    std::cout << "Potencia PV estimada: "
-              << P_pv << " kW\n";
-
-    // =====================================================
-    // ENERGY MODEL
-    // =====================================================
-
-    double P_job = 2.0;
-
-    model.update(P_job,
-                 P_pv,
-                 total_seconds);
-
+    // ============================= TRIAGEM PV-FIRST ==========================
+    // A leitura aqui e direta:
+    // - o SimGrid me diz quanta potencia media o job exigiu
+    // - o modelo solar me diz quanta potencia PV eu tenho nesse instante
+    // - a politica PV-First usa primeiro a placa e manda o restante para a rede
+    model.update(job.averagePowerKW, P_pv, job.durationSeconds);
     EnergyStats stats = model.getStats();
 
-    std::cout << "\n============= RESULTADO =============\n";
-    std::cout << "Energia Total: "
-              << stats.E_total << " kWh\n";
-    std::cout << "Energia PV: "
-              << stats.E_pv << " kWh\n";
-    std::cout << "Energia Grid: "
-              << stats.E_grid << " kWh\n";
-    std::cout << "Emissoes CO2: "
-              << stats.CO2 << " gCO2\n";
+    double pvPossible = P_pv * (job.durationSeconds / 3600.0);
 
-    // =====================================================
-    // CSV
-    // =====================================================
+    std::cout << "\n-------------------- RESULTADO PV-FIRST ----------------\n";
+    std::cout << "Energia total do job : " << stats.E_total << " kWh\n";
+    std::cout << "Energia vinda da PV  : " << stats.E_pv << " kWh\n";
+    std::cout << "Energia vinda da rede: " << stats.E_grid << " kWh\n";
+    std::cout << "CO2 da parte da rede : " << stats.CO2 << " gCO2\n";
 
+    std::cout << "\nLeitura rapida do experimento:\n";
+    std::cout << "- o job do SimGrid pediu " << job.energyKWh << " kWh no total\n";
+    std::cout << "- a placa poderia entregar ate " << pvPossible << " kWh nesse mesmo intervalo\n";
+    std::cout << "- a politica PV-First usou primeiro a energia solar e mandou o resto para a rede\n";
+
+    // ================================ CSV ====================================
     bool fileExists = std::filesystem::exists("results.csv");
-
     std::ofstream file("results.csv", std::ios::app);
 
-   if (!fileExists)
-    {
-        file << "Hora_local;Dia_ano;"
-                "Irradiancia_teorica;"
-                "Irradiancia_ajustada;"
-                "Temperatura;"
-                "P_pv_inst;"
-                "E_total;"
-                "E_pv;"
-                "E_grid;"
-                "CO2\n";
+    if (!file.is_open()) {
+        throw std::runtime_error("Nao consegui abrir ou criar o arquivo results.csv dentro da pasta build.");
     }
 
-   file << hourInt << ":" << minuteInt << ";"
-     << dayOfYear << ";"
-     << G << ";"               
-     << G_adjusted << ";"      
-     << impact.temperature << ";"
-     << P_pv << ";"
-     << stats.E_total << ";"
-     << stats.E_pv << ";"
-     << stats.E_grid << ";"
-     << stats.CO2 << "\n";
-    std::cout << "\nDados salvos em results.csv\n";
+    if (!fileExists) {
+        file << "Cidade;Latitude;Longitude;Hora_local;Dia_ano;"
+                "Temperatura;Nuvens;Chuva;Vento;"
+                "Irradiancia_teorica;Irradiancia_ajustada;Potencia_pv;"
+                "Job_flops;Job_duracao_s;Job_energia_j;Job_energia_kwh;Job_potencia_media_kw;"
+                "Energia_total_kwh;Energia_pv_kwh;Energia_grid_kwh;CO2_g\n";
+    }
+
+    std::ostringstream hourText;
+    hourText << std::setfill('0') << std::setw(2) << hourInt << ":"
+             << std::setfill('0') << std::setw(2) << minuteInt;
+
+    file << gps.city << ";"
+         << gps.latitude << ";"
+         << gps.longitude << ";"
+         << hourText.str() << ";"
+         << dayOfYear << ";"
+         << impact.temperature << ";"
+         << impact.cloudCover << ";"
+         << impact.rainAmount << ";"
+         << impact.windSpeed << ";"
+         << G << ";"
+         << G_adjusted << ";"
+         << P_pv << ";"
+         << job.jobFlops << ";"
+         << job.durationSeconds << ";"
+         << job.energyJoules << ";"
+         << job.energyKWh << ";"
+         << job.averagePowerKW << ";"
+         << stats.E_total << ";"
+         << stats.E_pv << ";"
+         << stats.E_grid << ";"
+         << stats.CO2 << "\n";
+
+    file.close();
+
+    std::cout << "\nresults.csv atualizado com sucesso.\n";
+    std::cout << "\n============================================================\n";
+    std::cout << "SIMULACAO FINALIZADA\n";
+    std::cout << "============================================================\n";
 }

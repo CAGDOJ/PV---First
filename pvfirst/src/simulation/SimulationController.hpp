@@ -1,21 +1,18 @@
-#ifndef SIMULATION_CONTROLLER_HPP
-#define SIMULATION_CONTROLLER_HPP
+#pragma once
+
+#include "energy/EnergyModel.hpp"
 
 #include <string>
-#include "energy/EnergyModel.hpp"
-#include "sensors/GeoSensor.hpp"
-#include "sensors/SolarModel.hpp"
 
-
-class SimulationController {
+class SimulationController
+{
 public:
     SimulationController();
     void run();
 
 private:
+    double askJobFlops();
+    double parseJobInput(const std::string& input);
+
     EnergyModel model;
-
-    double parseTimeInput(const std::string& input);
 };
-
-#endif

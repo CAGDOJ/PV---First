@@ -1,7 +1,8 @@
 CMakeFiles/pvfirst.dir/src/policy/PVFirstPolicy.cpp.o: \
- /app/src/policy/PVFirstPolicy.cpp /usr/include/stdc-predef.h \
- /app/src/policy/PVFirstPolicy.hpp /usr/include/c++/13/algorithm \
- /usr/include/c++/13/bits/stl_algobase.h \
+ /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/policy/PVFirstPolicy.cpp \
+ /usr/include/stdc-predef.h \
+ /mnt/c/Users/stel-adm/Downloads/pvfirst_simgrid_wsl_documentado/pvfirst/src/policy/PVFirstPolicy.hpp \
+ /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
