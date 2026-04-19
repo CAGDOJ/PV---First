@@ -48,5 +48,9 @@ if ! make -s -j"$(nproc)" >"$MAKE_LOG" 2>&1; then
     exit 1
 fi
 
+# aqui eu volto para a raiz do projeto para que a pasta results
+# fique ao lado de src, simgrid, CMakeLists e run.sh
+cd "$ROOT_DIR"
+
 clear
-./pvfirst "$@"
+./build/pvfirst "$@"
