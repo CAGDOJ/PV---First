@@ -1,2 +1,3 @@
 Cidade;Latitude;Longitude;Hora_local;Dia_ano;Temperatura;Nuvens;Chuva;Vento;Irradiancia_teorica;Irradiancia_ajustada;Potencia_pv;Job_flops;Job_duracao_s;Job_energia_j;Job_energia_kwh;Job_potencia_media_kw;Energia_total_kwh;Energia_pv_kwh;Energia_grid_kwh;CO2_g
-Belém;-1.4537;-48.5078;20:53;106;25.6;100;0.9;5.6;0;0;0;5e+10;1;250;6.94444e-05;0.25;6.94444e-05;0;6.94444e-05;0.00694444
+Belém;-1.4537;-48.5078;13:08;107;29.5;100;0.1;4.8;936.569;222.435;0.437536;5e+10;1;250;6.94444e-05;0.25;6.94444e-05;6.94444e-05;0;0
+Belém;-1.4537;-48.5078;14:02;107;28.8;100;0.8;5.4;843.405;200.309;0.395468;5e+10;1;250;6.94444e-05;0.25;6.94444e-05;6.94444e-05;0;0
