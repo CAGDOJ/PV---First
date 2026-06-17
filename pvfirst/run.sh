@@ -12,12 +12,10 @@ MAKE_LOG="$BUILD_DIR/make.log"
 
 NEED_CONFIGURE=0
 
-# se ainda nao existe Makefile, eu preciso rodar o cmake
 if [ ! -f Makefile ]; then
     NEED_CONFIGURE=1
 fi
 
-# se o CMakeLists foi alterado depois da ultima configuracao, reconfigura
 if [ -f "$ROOT_DIR/CMakeLists.txt" ] && [ -f Makefile ]; then
     if [ "$ROOT_DIR/CMakeLists.txt" -nt Makefile ]; then
         NEED_CONFIGURE=1
@@ -48,9 +46,10 @@ if ! make -s -j"$(nproc)" >"$MAKE_LOG" 2>&1; then
     exit 1
 fi
 
-# aqui eu volto para a raiz do projeto para que a pasta results
-# fique ao lado de src, simgrid, CMakeLists e run.sh
 cd "$ROOT_DIR"
 
-clear
+if [ -t 1 ]; then
+    clear
+fi
+
 ./build/pvfirst "$@"
