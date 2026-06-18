@@ -77,11 +77,9 @@ void SimulationController::run()
     std::cout << "============================================================\n\n";
 
     std::cout << "Fluxo da simulacao:\n";
-    std::cout << "1) o SimGrid executa o job e mede a energia exigida pelo host\n";
-    std::cout << "2) eu calculo a energia solar disponivel com base no local e no clima\n";
+    std::cout << "1) eu verifico local, clima e irradiancia solar\n";
+    std::cout << "2) se houver irradiancia util, o SimGrid executa o job\n";
     std::cout << "3) a politica PV-First tenta atender primeiro o job com a placa\n\n";
-
-    double jobFlops = askJobFlops();
 
     // ============================== LOCALIZACAO ==============================
     // Aqui eu pego a localizacao atual do experimento.
@@ -184,12 +182,37 @@ void SimulationController::run()
     std::cout << "Eficiencia final arranjo : " << pvEfficiency << "\n";
     std::cout << "Potencia PV disponivel   : " << pvPowerKW << " kW\n";
 
-    if (irradianceTheoreticalWm2 <= 0.0) {
-        std::cout << "Observacao: neste horario a irradiancia teorica ficou zerada.\n";
-        std::cout << "Isso normalmente acontece porque o calculo caiu em periodo noturno ou muito proximo disso.\n";
+    // ====================== FILTRO DE IRRADIANCIA UTIL =======================
+    // Aqui esta o ponto principal para nao encher o CSV com dados sem sentido.
+    //
+    // Se ainda nao tiver sol util, eu paro esta execucao aqui.
+    // Assim:
+    // - nao rodo o job no SimGrid sem necessidade
+    // - nao salvo linha no CSV
+    // - o script externo entende que ainda nao comecou o periodo solar
+    //   ou que o periodo solar ja terminou.
+    //
+    // Esse texto PVFIRST_SEM_IRRADIANCIA e proposital.
+    // O script run_solar_window.sh usa exatamente essa frase para decidir
+    // se continua aguardando ou se encerra o experimento do dia.
+    const double irradianceMinimumToRun = 1.0; // W/m2
+
+    if (irradianceAdjustedWm2 <= irradianceMinimumToRun || pvPowerKW <= 0.0) {
+        std::cout << "\nPVFIRST_SEM_IRRADIANCIA\n";
+        std::cout << "Sem irradiancia util neste instante.\n";
+        std::cout << "Nenhum job foi executado no SimGrid.\n";
+        std::cout << "Nenhum resultado foi salvo no CSV.\n";
+        std::cout << "\n============================================================\n";
+        std::cout << "EXECUCAO ENCERRADA SEM REGISTRO\n";
+        std::cout << "============================================================\n";
+        return;
     }
 
     // ============================= JOB DO SIMGRID ============================
+    // A partir daqui eu ja sei que existe irradiancia util.
+    // Entao agora sim vale a pena executar o job no SimGrid e registrar o resultado.
+    double jobFlops = askJobFlops();
+
     // Aqui o SimGrid continua sendo a fonte oficial da demanda do job.
     // Ou seja: a duracao, a energia e a potencia media saem da simulacao computacional,
     // e nao de um chute feito no controller.
@@ -231,12 +254,14 @@ void SimulationController::run()
     std::cout << "- a placa poderia entregar ate " << pvPossibleKWh << " kWh nesse mesmo intervalo\n";
     std::cout << "- a politica PV-First usou primeiro a energia solar e mandou o resto para a rede\n";
 
-    // ================================ CSV ====================================
+        // ================================ CSV ====================================
     // Aqui eu salvo um arquivo por dia dentro da pasta results na raiz do projeto.
-    // Exemplo:
-    // results/RPVfirst180426.csv
+    // Agora usei ponto e virgula como separador, porque no Excel em portugues
+    // o CSV com virgula costuma abrir todo baguncado.
     //
-    // Se eu rodar varias vezes no mesmo dia, ele continua acrescentando linhas nesse mesmo arquivo.
+    // Exemplo:
+    // results/RPVfirst170626.csv
+
     std::filesystem::create_directories("results");
 
     std::ostringstream fileNameBuilder;
@@ -283,76 +308,76 @@ void SimulationController::run()
                  << std::setfill('0') << std::setw(2) << minuteInt
                  << std::setfill('0') << std::setw(2) << secondInt;
 
-    // Aqui eu deixei o cabecalho pronto para Tableau e banco:
-    // nomes estaveis, sem espaco e com unidade no nome.
+    const char sep = ';';
+
     if (!fileExists) {
-        file << "run_id,"
-                "run_date,"
-                "run_time,"
-                "run_datetime,"
-                "day_of_year,"
-                "city,"
-                "latitude,"
-                "longitude,"
-                "panel_material,"
-                "panel_face_type,"
-                "panel_area_m2,"
-                "panel_base_efficiency,"
-                "panel_material_factor,"
-                "panel_effective_base_efficiency,"
-                "panel_bifacial_gain_factor,"
-                "cloud_cover_pct,"
-                "rain_mm,"
-                "temperature_c,"
-                "wind_speed_kmh,"
-                "irradiance_theoretical_w_m2,"
-                "irradiance_adjusted_w_m2,"
-                "pv_efficiency,"
-                "pv_power_kw,"
-                "grid_carbon_intensity_gco2_kwh,"
-                "job_flops,"
-                "job_duration_s,"
-                "job_energy_j,"
-                "job_energy_kwh,"
-                "job_average_power_kw,"
-                "energy_total_kwh,"
-                "energy_pv_kwh,"
-                "energy_grid_kwh,"
-                "co2_g\n";
+        file << "run_id" << sep
+             << "run_date" << sep
+             << "run_time" << sep
+             << "run_datetime" << sep
+             << "day_of_year" << sep
+             << "city" << sep
+             << "latitude" << sep
+             << "longitude" << sep
+             << "panel_material" << sep
+             << "panel_face_type" << sep
+             << "panel_area_m2" << sep
+             << "panel_base_efficiency" << sep
+             << "panel_material_factor" << sep
+             << "panel_effective_base_efficiency" << sep
+             << "panel_bifacial_gain_factor" << sep
+             << "cloud_cover_pct" << sep
+             << "rain_mm" << sep
+             << "temperature_c" << sep
+             << "wind_speed_kmh" << sep
+             << "irradiance_theoretical_w_m2" << sep
+             << "irradiance_adjusted_w_m2" << sep
+             << "pv_efficiency" << sep
+             << "pv_power_kw" << sep
+             << "grid_carbon_intensity_gco2_kwh" << sep
+             << "job_flops" << sep
+             << "job_duration_s" << sep
+             << "job_energy_j" << sep
+             << "job_energy_kwh" << sep
+             << "job_average_power_kw" << sep
+             << "energy_total_kwh" << sep
+             << "energy_pv_kwh" << sep
+             << "energy_grid_kwh" << sep
+             << "co2_g\n";
     }
 
-    file << runIdBuilder.str() << ","
-         << runDateBuilder.str() << ","
-         << runTimeBuilder.str() << ","
-         << runDateTimeBuilder.str() << ","
-         << dayOfYear << ","
-         << "\"" << gps.city << "\"" << ","
-         << gps.latitude << ","
-         << gps.longitude << ","
-         << "\"" << config.pv.panelMaterial << "\"" << ","
-         << "\"" << config.pv.panelFaceType << "\"" << ","
-         << config.pv.panelAreaM2 << ","
-         << config.pv.baseEfficiency << ","
-         << materialFactor << ","
-         << effectiveBaseEfficiency << ","
-         << config.pv.bifacialGainFactor << ","
-         << impact.cloudCover << ","
-         << impact.rainAmount << ","
-         << impact.temperature << ","
-         << impact.windSpeed << ","
-         << irradianceTheoreticalWm2 << ","
-         << irradianceAdjustedWm2 << ","
-         << pvEfficiency << ","
-         << pvPowerKW << ","
-         << config.gridCarbonIntensity << ","
-         << job.jobFlops << ","
-         << job.durationSeconds << ","
-         << job.energyJoules << ","
-         << job.energyKWh << ","
-         << job.averagePowerKW << ","
-         << stats.E_total << ","
-         << stats.E_pv << ","
-         << stats.E_grid << ","
+    file << runIdBuilder.str() << sep
+         << runDateBuilder.str() << sep
+         << runTimeBuilder.str() << sep
+         << runDateTimeBuilder.str() << sep
+         << dayOfYear << sep
+         << "\"" << gps.city << "\"" << sep
+         << gps.latitude << sep
+         << gps.longitude << sep
+         << "\"" << config.pv.panelMaterial << "\"" << sep
+         << "\"" << config.pv.panelFaceType << "\"" << sep
+         << config.pv.panelAreaM2 << sep
+         << config.pv.baseEfficiency << sep
+         << materialFactor << sep
+         << effectiveBaseEfficiency << sep
+         << config.pv.bifacialGainFactor << sep
+         << impact.cloudCover << sep
+         << impact.rainAmount << sep
+         << impact.temperature << sep
+         << impact.windSpeed << sep
+         << irradianceTheoreticalWm2 << sep
+         << irradianceAdjustedWm2 << sep
+         << pvEfficiency << sep
+         << pvPowerKW << sep
+         << config.gridCarbonIntensity << sep
+         << job.jobFlops << sep
+         << job.durationSeconds << sep
+         << job.energyJoules << sep
+         << job.energyKWh << sep
+         << job.averagePowerKW << sep
+         << stats.E_total << sep
+         << stats.E_pv << sep
+         << stats.E_grid << sep
          << stats.CO2 << "\n";
 
     file.close();

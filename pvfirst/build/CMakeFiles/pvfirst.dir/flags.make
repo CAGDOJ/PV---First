@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/mnt/c/Users/stel-adm/Documents/GitHub/pvfirst/src
 
-CXX_FLAGS = -std=gnu++17
+CXX_FLAGS = -std=c++17
 
